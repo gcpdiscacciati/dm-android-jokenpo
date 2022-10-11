@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textViewX"
+            android:layout_width="23dp"
+            android:layout_height="74dp"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/versus"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/black"
+            android:textSize="48sp"
+            app:layout_constraintEnd_toStartOf="@+id/placarComputador"
+            app:layout_constraintStart_toEndOf="@+id/placarHumano"
+            app:layout_constraintTop_toTopOf="@+id/placarHumano" />
+
+        <TextView
+            android:id="@+id/placarHumano"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/placar_inicio_humano"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/buttonZerar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewHuman" />
+
+        <TextView
+            android:id="@+id/textViewHuman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/humano"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/placarHumano"
+            app:layout_constraintStart_toStartOf="@+id/placarHumano"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewComp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/computador"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/placarComputador"
+            app:layout_constraintStart_toStartOf="@+id/placarComputador"
+            app:layout_constraintTop_toTopOf="@+id/textViewHuman" />
+
+        <TextView
+            android:id="@+id/placarComputador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="72dp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/placar_inicio_computador"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/buttonZerar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewComp" />
+
+        <Button
+            android:id="@+id/buttonZerar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/white"
+            android:onClick="clearScore"
+            android:text="@string/zerar"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textViewX"
+            app:layout_constraintStart_toStartOf="@+id/textViewX"
+            app:layout_constraintTop_toBottomOf="@+id/textViewX"
+            app:strokeWidth="1sp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <TextView
+            android:id="@+id/textViewEscolha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/escolha_comp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/jogadaComp"
+            android:layout_width="163dp"
+            android:layout_height="126dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:adjustViewBounds="true"
+            android:background="@color/white"
+            android:padding="10px"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/isConstantMode" />
+
+        <Switch
+            android:id="@+id/isConstantMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:checked="false"
+            android:showText="false"
+            android:text="@string/escolha_constante"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewEscolha" />
+
+        <ImageView
+            android:id="@+id/imageViewTooltip"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:tooltipText="@string/tooltip_escolha_constante"
+            app:layout_constraintBottom_toBottomOf="@+id/isConstantMode"
+            app:layout_constraintStart_toEndOf="@+id/isConstantMode"
+            app:layout_constraintTop_toTopOf="@+id/isConstantMode"
+            app:srcCompat="@drawable/ic_baseline_help_24"
+            app:tint="@color/dark_gray" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textViewSelecione"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/selecione"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/imageTesoura"
+            android:layout_width="92dp"
+            android:layout_height="67dp"
+            android:adjustViewBounds="true"
+            android:background="@color/white"
+            android:onClick="joKenPo"
+            android:padding="10px"
+            android:scaleType="fitCenter"
+            android:src="@drawable/scissor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imagePapel"
+            app:layout_constraintTop_toTopOf="@+id/imagePapel" />
+
+        <ImageButton
+            android:id="@+id/imagePapel"
+            android:layout_width="92dp"
+            android:layout_height="67dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:adjustViewBounds="true"
+            android:background="@color/white"
+            android:onClick="joKenPo"
+            android:padding="10px"
+            android:scaleType="fitCenter"
+            android:src="@drawable/hand"
+            app:layout_constraintBottom_toTopOf="@+id/buttonJogarNovamente"
+            app:layout_constraintEnd_toEndOf="@+id/textViewSelecione"
+            app:layout_constraintStart_toStartOf="@+id/textViewSelecione"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSelecione" />
+
+        <ImageButton
+            android:id="@+id/imagePedra"
+            android:layout_width="92dp"
+            android:layout_height="67dp"
+            android:adjustViewBounds="true"
+            android:background="@color/white"
+            android:cropToPadding="false"
+            android:onClick="joKenPo"
+            android:padding="10px"
+            android:scaleType="fitCenter"
+            android:src="@drawable/fist"
+            app:layout_constraintEnd_toStartOf="@+id/imagePapel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imagePapel" />
+
+        <Button
+            android:id="@+id/buttonJogarNovamente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/white"
+            android:onClick="playAgain"
+            android:text="@string/jogar_novamente"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageTesoura"
+            app:strokeWidth="1px" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

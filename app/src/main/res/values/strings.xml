@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Jo Ken Po</string>
+    <string name="humano">HUMANO</string>
+    <string name="computador">COMPUTADOR</string>
+    <string name="zerar">ZERAR</string>
+    <string name="escolha_comp">Escolha do computador</string>
+    <string name="selecione">Selecione sua jogada:</string>
+    <string name="venceu">Você venceu!</string>
+    <string name="perdeu">Você perdeu!</string>
+    <string name="empate">Empate!</string>
+    <string name="placar_inicio_humano">0</string>
+    <string name="placar_inicio_computador">0</string>
+    <string name="versus">x</string>
+    <string name="pedra">PEDRA</string>
+    <string name="papel">PAPEL</string>
+    <string name="tesoura">TESOURA</string>
+    <string name="jogar_novamente">Jogar novamente</string>
+    <string name="nome">Nome</string>
+    <string name="bot">Bot</string>
+    <string name="enviar">ENVIAR</string>
+    <string name="ranking">RANKING</string>
+    <string name="digiteNome">Digite seu nome</string>
+    <string name="escolha_constante">Escolha constante</string>
+    <string name="ranking_vazio">O ranking está vazio!</string>
+    <string name="tooltip_escolha_constante">O computador escolherá sempre Pedra.</string>
+    <string name="limpar_ranking">LIMPAR</string>
+    <string name="certeza_apagar">Tem certeza que deseja apagar o ranking?</string>
+    <string name="sim">Sim</string>
+    <string name="cancelar">Cancelar</string>
+</resources>
