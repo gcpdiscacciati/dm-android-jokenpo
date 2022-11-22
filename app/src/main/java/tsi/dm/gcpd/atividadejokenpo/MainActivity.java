@@ -1,5 +1,6 @@
 package tsi.dm.gcpd.atividadejokenpo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,6 +18,11 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,13 +33,14 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Winner> winnerList = new ArrayList<>();
     private Winner winner;
-    private WinnerDatabase db;
-
+    //private WinnerDatabase db;
+    private FirebaseFirestore db;
+    private final String TAG = "DEBUG ----";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.winner = new Winner();
-        this.db = WinnerDatabase.getDatabase(this);
+        this.db = FirebaseFirestore.getInstance();
         setContentView(R.layout.activity_main);
         Log.d("winner create", winner.toString());
     }
@@ -202,7 +209,22 @@ public class MainActivity extends AppCompatActivity {
         winner.setIsPlayer(isPlayer);
         winner.setIsLast(1);
         Log.d("winner", winner.toString());
-        db.winnerDao().insert(winner);
+        //db.winnerDao().insert(winner);
+
+        db.collection("ranking")
+                .add(winner)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
         //winnerList.add(winner);
         //Log.d("winners main", winnerList.toString());
         Intent intent = new Intent(this, Ranking.class);

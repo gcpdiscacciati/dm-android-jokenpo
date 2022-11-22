@@ -98,7 +98,11 @@ public class Winner implements Parcelable, Comparable<Winner> {
         this.score = score;
     }
 
-    public Integer isPlayer() {
+    //public Integer isPlayer() {
+    //    return isPlayer;
+    //}
+
+    public Integer getIsPlayer() {
         return isPlayer;
     }
 
