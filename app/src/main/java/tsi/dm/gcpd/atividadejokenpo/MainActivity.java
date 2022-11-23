@@ -1,11 +1,20 @@
 package tsi.dm.gcpd.atividadejokenpo;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,8 +29,12 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,13 +49,47 @@ public class MainActivity extends AppCompatActivity {
     //private WinnerDatabase db;
     private FirebaseFirestore db;
     private final String TAG = "DEBUG ----";
+    private Vibrator vibrator;
+    private MediaPlayer mp = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.winner = new Winner();
         this.db = FirebaseFirestore.getInstance();
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         setContentView(R.layout.activity_main);
         Log.d("winner create", winner.toString());
+        createChannel();
+        View view = View.inflate(getApplicationContext(), R.layout.activity_main, null);
+        db.collection("ranking")
+                .addSnapshotListener(
+                        new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(
+                                    @Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
+                                if (e != null) {
+                                    System.err.println("Listen failed: " + e);
+                                    return;
+                                }
+                                for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                                    switch (dc.getType()) {
+                                        case ADDED:
+//                                            System.out.println("New city: " + dc.getDocument().getData());
+                                            PersonalNotification.criaNotificacao("Ranking Jo Ken Po", "Um novo jogador foi adicionado ao ranking", view);
+                                            break;
+                                        case MODIFIED:
+                                            Log.d("Modified: ", dc.getDocument().getData().toString());
+                                            break;
+                                        case REMOVED:
+                                            //limpou = true;
+                                            Log.d("Removed: ", dc.getDocument().getData().toString());
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                            }
+                        });
     }
 
     @Override
@@ -86,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
     public void joKenPo(View view){
         ImageButton imageButton = (ImageButton) view;
         Button button = (Button) findViewById(R.id.buttonJogarNovamente);
+
         if(button.getVisibility() == View.INVISIBLE){
             highlightButton(view);
             int playerChoice = view.getId();
@@ -94,6 +142,22 @@ public class MainActivity extends AppCompatActivity {
             int winner = getWinner(playerChoice, computerChoice);
             if(winner >= 0){
                 updateScore(winner);
+                if(winner == 0){
+                    if(mp != null){
+                        mp.stop();
+                        mp.release();
+                    }
+                    mp = MediaPlayer.create(getApplicationContext(), R.raw.acerto);
+                    mp.start();
+                }
+                else{
+                    if(mp != null){
+                        mp.stop();
+                        mp.release();
+                    }
+                    mp = MediaPlayer.create(getApplicationContext(), R.raw.erro);
+                    mp.start();
+                }
             }
             updateMessage(winner);
             button.setVisibility(View.VISIBLE);
@@ -190,15 +254,44 @@ public class MainActivity extends AppCompatActivity {
         final int computer = 1;
         int score = 0;
         Integer isPlayer = 0;
-
+        final VibrationEffect vibrationEffect;
+        long[] pattern;
         switch (winnerGame){
             case player:
                 score = Integer.valueOf(placarHumano.getText().toString()) - Integer.valueOf(placarComputador.getText().toString());
                 isPlayer = 1;
                 winner.setNome("Player");
+                pattern = new long[]{0,100, 60, 100, 60, 100};
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+
+                    vibrationEffect = VibrationEffect.createWaveform(pattern, -1);
+
+                    // it is safe to cancel other vibrations currently taking place
+                    vibrator.cancel();
+
+                    vibrator.vibrate(vibrationEffect);
+                }
+                else{
+                    vibrator.cancel();
+                    vibrator.vibrate(pattern, -1);
+                }
                 break;
             case computer:
                 score = Integer.valueOf(placarComputador.getText().toString()) - Integer.valueOf(placarHumano.getText().toString());
+                pattern = new long[]{0,300};
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+
+                    vibrationEffect = VibrationEffect.createWaveform(pattern, -1);
+
+                    // it is safe to cancel other vibrations currently taking place
+                    vibrator.cancel();
+
+                    vibrator.vibrate(vibrationEffect);
+                }
+                else{
+                    vibrator.cancel();
+                    vibrator.vibrate(pattern, -1);
+                }
                 break;
         }
         for(Winner win : winnerList){
@@ -300,4 +393,19 @@ public class MainActivity extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.jogadaComp);
         imageView.setImageResource(0);
     }
+
+    public void createChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String name = "notific";
+            String description = "test";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel("1", name, importance);
+            channel.setDescription(description);
+            channel.setShowBadge(true);
+            channel.setLockscreenVisibility(Notification.VISIBILITY_SECRET);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
 }

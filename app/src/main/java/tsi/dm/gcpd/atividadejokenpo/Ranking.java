@@ -245,6 +245,7 @@ public class Ranking extends AppCompatActivity {
         //listWinner = new ArrayList<>();
 //        db.winnerDao().clearTable();
 //        List<Winner> winners = db.winnerDao().getAll();
+        View view = View.inflate(getApplicationContext(), R.layout.activity_main, null);
         db.collection("ranking")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -254,6 +255,7 @@ public class Ranking extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 db.collection("ranking").document(document.getId()).delete();
                             }
+                            PersonalNotification.criaNotificacao("Ranking Jo Ken Po", "O ranking foi resetado", view);
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
                         }
