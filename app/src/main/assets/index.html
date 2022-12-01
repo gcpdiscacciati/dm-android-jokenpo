@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/styles.css"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <title>JoKenPo</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row center">
+            <div class="col s4"><h5>HUMANO</h5></div>
+            <div class="col s4"></div>
+            <div class="col s4"><h5>PC</h5></div>
+        </div>
+        <div class="row center">
+            <div class="col s4"><h2>0</h2></div>
+            <div class="col s4"><h2>x</h2></div>
+            <div class="col s4"><h2>0</h2></div>
+        </div>
+        <div class="row center">
+            <div class="col s12"><a class="waves-effect waves-light btn-large">ZERAR</a></div>
+        </div>
+        <div class="row center">
+            <div class="col s12"><h5>Escolha do computador</h5></div>
+        </div>
+        <div class="row center">
+            <!-- Switch -->
+            <div class="switch col s12 valign-wrapper">
+                <label>
+                    Escolha constante
+                    <input type="checkbox">
+                    <span class="lever"></span>
+                </label>
+                <i class="material-icons tooltipped" data-position="right" data-tooltip="O computador escolherá sempre Pedra">help</i>
+            </div>
+        </div>
+        <div class="row center">
+            <img class="responsive-img col s4 offset-s4" src="img/fist.png">
+        </div>
+        <div class="row center">
+            <div class="col s12"><h5><strong>Selecione sua jogada:</strong></h5></div>
+        </div>
+        <div class="row center">
+            <div class="col s4"><button id="btn_pedra" onclick="joKenPo(this.id)"><img class="img-option" src="img/fist.png"></button></div>
+            <div class="col s4"><button id="btn_papel" onclick="joKenPo(this.id)"><img class="img-option" src="img/hand.png"></button></div>
+            <div class="col s4"><button id="btn_tesoura" onclick="joKenPo(this.id)"><img class="img-option" src="img/scissor.png"></button></div>
+            <!-- <div class="col s4"><a class="waves-effect waves-light btn-large">Button</a></div>
+            <div class="col s4"><a class="waves-effect waves-light btn-large">Button</a></div> -->
+        </div>
+        <div class="row center">
+            <div id="btn_jogar_novamente" class="col s12"><a class="waves-effect waves-light btn-large">Jogar Novamente</a></div>
+        </div>
+
+    </div>
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
