@@ -285,34 +285,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 //
-    private void updateScore(int winner) {
-        final int player = 0;
-        final int computer = 1;
-        int score = 0;
-
-        TextView placarHumano = (TextView) findViewById(R.id.placarHumano);
-        TextView placarComputador = (TextView) findViewById(R.id.placarComputador);
-        Log.d("debug", "placarHumano"+placarHumano.getText());
-        Log.d("debug", "placarComputador"+placarComputador.getText());
-
-        switch (winner){
-            case player:
-                score = Integer.valueOf(placarHumano.getText().toString());
-                score++;
-                placarHumano.setText(String.valueOf(score));
-                break;
-            case computer:
-                score = Integer.valueOf(placarComputador.getText().toString());
-                score++;
-                placarComputador.setText(String.valueOf(score));
-                break;
-        }
-
-        if(score == 5){
-            buildRanking(winner, placarHumano, placarComputador);
-        }
-
-    }
+//    private void updateScore(int winner) {
+//        final int player = 0;
+//        final int computer = 1;
+//        int score = 0;
+//
+//        TextView placarHumano = (TextView) findViewById(R.id.placarHumano);
+//        TextView placarComputador = (TextView) findViewById(R.id.placarComputador);
+//        Log.d("debug", "placarHumano"+placarHumano.getText());
+//        Log.d("debug", "placarComputador"+placarComputador.getText());
+//
+//        switch (winner){
+//            case player:
+//                score = Integer.valueOf(placarHumano.getText().toString());
+//                score++;
+//                placarHumano.setText(String.valueOf(score));
+//                break;
+//            case computer:
+//                score = Integer.valueOf(placarComputador.getText().toString());
+//                score++;
+//                placarComputador.setText(String.valueOf(score));
+//                break;
+//        }
+//
+//        if(score == 5){
+//            buildRanking(winner, placarHumano, placarComputador);
+//        }
+//
+//    }
 //
     private void buildRanking(int winnerGame, TextView placarHumano, TextView placarComputador) {
         final int player = 0;
@@ -435,25 +435,25 @@ public class MainActivity extends AppCompatActivity {
     }
 //
 //
-    private String getComputerChoice(){
-        Switch switchMode = new Switch(getApplicationContext());//(Switch) findViewById(R.id.isConstantMode);
-        Random random = new Random();
-        int res = switchMode.isChecked() ? 0 : random.nextInt(3);
-        Log.d("debug", "random number: " + res);
-        ImageView imageView = (ImageView) findViewById(R.id.jogadaComp);
-        switch (res){
-            case 0:
-                imageView.setImageResource(R.drawable.fist);
-                return getString(R.string.pedra);
-            case 1:
-                imageView.setImageResource(R.drawable.hand);
-                return getString(R.string.papel);
-            default:
-                imageView.setImageResource(R.drawable.scissor);
-                return getString(R.string.tesoura);
-        }
-
-    }
+//    private String getComputerChoice(){
+//        Switch switchMode = new Switch(getApplicationContext());//(Switch) findViewById(R.id.isConstantMode);
+//        Random random = new Random();
+//        int res = switchMode.isChecked() ? 0 : random.nextInt(3);
+//        Log.d("debug", "random number: " + res);
+//        ImageView imageView = (ImageView) findViewById(R.id.jogadaComp);
+//        switch (res){
+//            case 0:
+//                imageView.setImageResource(R.drawable.fist);
+//                return getString(R.string.pedra);
+//            case 1:
+//                imageView.setImageResource(R.drawable.hand);
+//                return getString(R.string.papel);
+//            default:
+//                imageView.setImageResource(R.drawable.scissor);
+//                return getString(R.string.tesoura);
+//        }
+//
+//    }
 //
     private void clearComputerChoice(){
         ImageView imageView = (ImageView) findViewById(R.id.jogadaComp);

@@ -22,9 +22,9 @@
             <div class="col s4"><h5>PC</h5></div>
         </div>
         <div class="row center">
-            <div class="col s4"><h2>0</h2></div>
+            <div class="col s4"><h2 id="placarHumano">0</h2></div>
             <div class="col s4"><h2>x</h2></div>
-            <div class="col s4"><h2>0</h2></div>
+            <div class="col s4"><h2 id="placarComputador">0</h2></div>
         </div>
         <div class="row center">
             <div class="col s12"><a class="waves-effect waves-light btn-large">ZERAR</a></div>
@@ -37,27 +37,27 @@
             <div class="switch col s12 valign-wrapper">
                 <label>
                     Escolha constante
-                    <input type="checkbox">
+                    <input type="checkbox" id="switch">
                     <span class="lever"></span>
                 </label>
                 <i class="material-icons tooltipped" data-position="right" data-tooltip="O computador escolherá sempre Pedra">help</i>
             </div>
         </div>
         <div class="row center">
-            <img class="responsive-img col s4 offset-s4" src="img/fist.png">
+            <img id="jogadaComp" class="responsive-img col s4 offset-s4" src="img/fist.png">
         </div>
         <div class="row center">
-            <div class="col s12"><h5><strong>Selecione sua jogada:</strong></h5></div>
+            <div class="col s12"><h5><strong id="selecioneJogada">Selecione sua jogada:</strong></h5></div>
         </div>
         <div class="row center">
-            <div class="col s4"><button id="btn_pedra" onclick="joKenPo(this.id)"><img class="img-option" src="img/fist.png"></button></div>
-            <div class="col s4"><button id="btn_papel" onclick="joKenPo(this.id)"><img class="img-option" src="img/hand.png"></button></div>
-            <div class="col s4"><button id="btn_tesoura" onclick="joKenPo(this.id)"><img class="img-option" src="img/scissor.png"></button></div>
+            <div class="col s4"><button id="btn_pedra" onclick="joKenPo('pedra')"><img class="img-option" src="img/fist.png"></button></div>
+            <div class="col s4"><button id="btn_papel" onclick="joKenPo('papel')"><img class="img-option" src="img/hand.png"></button></div>
+            <div class="col s4"><button id="btn_tesoura" onclick="joKenPo('tesoura')"><img class="img-option" src="img/scissor.png"></button></div>
             <!-- <div class="col s4"><a class="waves-effect waves-light btn-large">Button</a></div>
             <div class="col s4"><a class="waves-effect waves-light btn-large">Button</a></div> -->
         </div>
         <div class="row center">
-            <div id="btn_jogar_novamente" class="col s12"><a class="waves-effect waves-light btn-large">Jogar Novamente</a></div>
+            <div id="btn_jogar_novamente" class="col s12"><a class="waves-effect waves-light btn-large" onclick="playAgain()">Jogar Novamente</a></div>
         </div>
 
     </div>
