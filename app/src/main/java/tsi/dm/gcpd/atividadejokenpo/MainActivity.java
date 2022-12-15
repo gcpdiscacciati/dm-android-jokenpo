@@ -314,81 +314,81 @@ public class MainActivity extends AppCompatActivity {
 //
 //    }
 //
-    private void buildRanking(int winnerGame, TextView placarHumano, TextView placarComputador) {
-        final int player = 0;
-        final int computer = 1;
-        int score = 0;
-        Integer isPlayer = 0;
-        final VibrationEffect vibrationEffect;
-        long[] pattern;
-        switch (winnerGame){
-            case player:
-                score = Integer.valueOf(placarHumano.getText().toString()) - Integer.valueOf(placarComputador.getText().toString());
-                isPlayer = 1;
-                winner.setNome("Player");
-                pattern = new long[]{0,100, 60, 100, 60, 100};
-                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-
-                    vibrationEffect = VibrationEffect.createWaveform(pattern, -1);
-
-                    // it is safe to cancel other vibrations currently taking place
-                    vibrator.cancel();
-
-                    vibrator.vibrate(vibrationEffect);
-                }
-                else{
-                    vibrator.cancel();
-                    vibrator.vibrate(pattern, -1);
-                }
-                break;
-            case computer:
-                score = Integer.valueOf(placarComputador.getText().toString()) - Integer.valueOf(placarHumano.getText().toString());
-                pattern = new long[]{0,300};
-                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-
-                    vibrationEffect = VibrationEffect.createWaveform(pattern, -1);
-
-                    // it is safe to cancel other vibrations currently taking place
-                    vibrator.cancel();
-
-                    vibrator.vibrate(vibrationEffect);
-                }
-                else{
-                    vibrator.cancel();
-                    vibrator.vibrate(pattern, -1);
-                }
-                break;
-        }
-        for(Winner win : winnerList){
-            win.setIsLast(0);
-        }
-        winner.setEndTime(System.currentTimeMillis());
-        winner.setScore(score);
-        winner.setIsPlayer(isPlayer);
-        winner.setIsLast(1);
-        Log.d("winner", winner.toString());
-        //db.winnerDao().insert(winner);
-
-        db.collection("ranking")
-                .add(winner)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
-                    }
-                });
-        //winnerList.add(winner);
-        //Log.d("winners main", winnerList.toString());
-        Intent intent = new Intent(this, Ranking.class);
-        //intent.putParcelableArrayListExtra("ranking", winnerList);
-        startActivity(intent);
-    }
+//    private void buildRanking(int placarHumano, int placarComputador) {
+//        final int player = 0;
+//        final int computer = 1;
+//        int score = 0;
+//        Integer isPlayer = 0;
+//        final VibrationEffect vibrationEffect;
+//        long[] pattern;
+//        //switch (winnerGame){
+//        //    case player:
+//                score = Integer.valueOf(placarHumano.getText().toString()) - Integer.valueOf(placarComputador.getText().toString());
+//        //isPlayer = 1;
+//        winner.setNome("Player");
+//        pattern = new long[]{0,100, 60, 100, 60, 100};
+//        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//
+//            vibrationEffect = VibrationEffect.createWaveform(pattern, -1);
+//
+//            // it is safe to cancel other vibrations currently taking place
+//            vibrator.cancel();
+//
+//            vibrator.vibrate(vibrationEffect);
+//        }
+//        else{
+//            vibrator.cancel();
+//            vibrator.vibrate(pattern, -1);
+//        }
+//          //      break;
+//            //case computer:
+////                score = Integer.valueOf(placarComputador.getText().toString()) - Integer.valueOf(placarHumano.getText().toString());
+////                pattern = new long[]{0,300};
+////                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+////
+////                    vibrationEffect = VibrationEffect.createWaveform(pattern, -1);
+////
+////                    // it is safe to cancel other vibrations currently taking place
+////                    vibrator.cancel();
+////
+////                    vibrator.vibrate(vibrationEffect);
+////                }
+////                else{
+////                    vibrator.cancel();
+////                    vibrator.vibrate(pattern, -1);
+////                }
+//              //  break;
+//        //}
+//        for(Winner win : winnerList){
+//            win.setIsLast(0);
+//        }
+//        winner.setEndTime(System.currentTimeMillis());
+//        winner.setScore(score);
+//        winner.setIsPlayer(isPlayer);
+//        winner.setIsLast(1);
+//        Log.d("winner", winner.toString());
+//        //db.winnerDao().insert(winner);
+//
+//        db.collection("ranking")
+//                .add(winner)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w(TAG, "Error adding document", e);
+//                    }
+//                });
+//        //winnerList.add(winner);
+//        //Log.d("winners main", winnerList.toString());
+//        Intent intent = new Intent(this, Ranking.class);
+//        //intent.putParcelableArrayListExtra("ranking", winnerList);
+//        startActivity(intent);
+//    }
 //
     private int getWinner(int playerChoice, String computerChoice) {
         final int player = 0;

@@ -1,5 +1,16 @@
 $(document).ready(function(){
     $('.tooltipped').tooltip();
+    //$('.modal').modal();
+});
+
+var onModalClose = function() {
+    clearScore();
+    $('#first_name')[0].value="";
+};
+
+var modal = document.querySelector('.modal');
+M.Modal.init(modal,{
+    onCloseEnd: onModalClose // Callback für Modal schließen.
 });
 
 const pedra = "pedra";
@@ -11,6 +22,9 @@ const empate = "Empate!";
 const selecioneJogada = "Selecione sua jogada:";
 
 function joKenPo(playerChoice){
+    const player = 0;
+    const computer = 1;
+    const draw = -1;
     //ImageButton imageButton = (ImageButton) view;
     let btnPlayAgain = $("#btn_jogar_novamente");
     // Button button = (Button) findViewById(R.id.buttonJogarNovamente);
@@ -22,7 +36,7 @@ function joKenPo(playerChoice){
         //console.log(computerChoice);
         let winner = getWinner(playerChoice, computerChoice);
         if(winner >= 0){
-            updateScore(winner);
+            var result = updateScore(winner);
             // if(winner == 0){
             //     if(mp != null){
             //         mp.stop();
@@ -42,9 +56,26 @@ function joKenPo(playerChoice){
         }
         updateMessage(winner);
         btnPlayAgain.css("display", "block");
+        if(result){
+            if(winner === player){
+                var instance = M.Modal.getInstance(modal);
+                instance.open();
+            }
+            else{
+                alert("Que pena, você perdeu!");
+                clearScore();
+            }
+        }
     }
     
 }
+
+$("#btnEnviarNome").click(function() {
+    let name = $('#first_name')[0].value;
+    if (name){
+        //buildRanking
+    }
+});
 
 function playAgain(){
     let selecione = $("#selecioneJogada")[0];
@@ -141,10 +172,10 @@ function updateScore(winner) {
             break;
     }
     console.log(score);
-    // if(score == 5){
-    //     buildRanking(winner, placarHumano, placarComputador);
-    // }
-
+    if(score === 5){
+        return true;
+    }
+    return false;
 }
 
 function updateMessage(winner) {
@@ -155,15 +186,29 @@ function updateMessage(winner) {
 
     switch (winner){
         case player:
-            selecione.innerText=venceu;//textView.setText(getString(R.string.venceu));
+            selecione.innerText=venceu;
             break;
         case computer:
             selecione.innerText=perdeu;    
-            //textView.setText(getString(R.string.perdeu));
+            
             break;
         default:
             selecione.innerText=empate;
-            //textView.setText(getString(R.string.empate));
             break;
     }
 }
+
+function clearScore(){
+    let placarHumano = $("#placarHumano")[0];
+    let placarComputador = $("#placarComputador")[0];
+    let selecione = $("#selecioneJogada")[0];
+    placarHumano.innerText = 0;
+    placarComputador.innerText = 0;
+    selecione.innerText = selecioneJogada;
+    //clearComputerChoice();
+    let btnPlayAgain = $("#btn_jogar_novamente");
+    btnPlayAgain.css("display", "none");
+}
+
+
+
